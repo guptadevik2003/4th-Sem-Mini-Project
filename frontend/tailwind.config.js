@@ -8,6 +8,18 @@ export default {
   darkMode: 'media', // or 'class'
   theme: {
     colors: ({ colors }) => ({
+      blurple: '#5865F2',
+      blurplehover: '#3B49A6',
+      screenbgdark: '#0A0D10',
+      screenbglight: '#0D1117',
+      cardbgdark: '#21262D',
+      lavender: '#967BB6',
+      premiumicon: '#E3B341',
+      premiumbg: 'rgb(255, 195, 79)',
+      premiumborder: 'rgba(187, 128, 9)',
+      iconbg: '#1E2761',
+      discordgreen: '#57F287',
+      deletered: '#D11A2A',
       inherit: colors.inherit,
       current: colors.current,
       transparent: colors.transparent,
@@ -147,6 +159,7 @@ export default {
       '2xl': '0 25px 50px -12px rgb(0 0 0 / 0.25)',
       inner: 'inset 0 2px 4px 0 rgb(0 0 0 / 0.05)',
       none: 'none',
+      switch: '0px 0px 4px 1px rgba(0, 0, 0, 0.5)', // Shadow for Toggle Switch
     },
     boxShadowColor: ({ theme }) => theme('colors'),
     brightness: {
