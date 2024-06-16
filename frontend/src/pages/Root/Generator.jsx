@@ -3,7 +3,7 @@ export default function Generator() {
     <div>
 
       <div>
-        <div className='md:w-[50%] w-[92%] mx-auto py-10 md:py-40'>
+        <div className='md:w-[65%] w-[92%] mx-auto py-10 md:py-40'>
           <h1 className='text-center text-white font-semibold md:text-4xl text-3xl'>Create Your Certificate</h1>
           <h2 className="my-5 text-center text-[#999] text-2xl">Select a template, enter some values and hit PLACEHOLDER to get your certificates</h2>
 
