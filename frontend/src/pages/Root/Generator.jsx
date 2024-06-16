@@ -131,7 +131,7 @@ export default function Generator() {
             <div className="mt-12">
 
               <h2 className='text-white font-medium md:text-2xl text-xl'>Upload Student Data</h2>
-              <p className="text-[#999] mt-1 mb-4">Upload an Excel file (.xlsx) containing the names of your students.</p>
+              <p className="text-[#999] mt-1 mb-4">Upload an Excel file (.xlsx) containing only the names of your students.</p>
 
               <div className='mt-8 flex flex-col md:flex-row md:items-center'>
                 <div>
