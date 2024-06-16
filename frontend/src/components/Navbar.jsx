@@ -23,7 +23,7 @@ export default function Navbar() {
           <ul className='w-[100%] py-4 flex md:flex-row flex-col md:items-center gap-4 font-medium'>
 
             <li>
-              <button onClick={() => { showHideNavbar(); navigate('/'); }} className='text-[#999] hover:text-[#ddd]'>PLACEHOLDER</button>
+              <button onClick={() => { showHideNavbar(); navigate('/generator'); }} className='text-[#999] hover:text-[#ddd]'>Generator</button>
             </li>
             <li>
               <button onClick={() => { showHideNavbar(); navigate('/'); }} className='text-[#999] hover:text-[#ddd]'>PLACEHOLDER</button>

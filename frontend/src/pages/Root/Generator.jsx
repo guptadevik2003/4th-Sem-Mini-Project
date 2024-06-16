@@ -94,15 +94,15 @@ export default function Generator() {
               <p className="text-[#999] mt-1 mb-4">Our tool offers a wide range of templates to use as a base for designing your certificate.</p>
 
               <div className="grid md:grid-cols-3 gap-3">
-                <img className="w-full border-4 border-transparent cursor-pointer template template-0" onClick={() => changeTemplate(0)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-1" onClick={() => changeTemplate(1)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-2" onClick={() => changeTemplate(2)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-3" onClick={() => changeTemplate(3)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-4" onClick={() => changeTemplate(4)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-5" onClick={() => changeTemplate(5)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-6" onClick={() => changeTemplate(6)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-7" onClick={() => changeTemplate(7)} src="certificate.jpeg" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-8" onClick={() => changeTemplate(8)} src="certificate.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-0" onClick={() => changeTemplate(0)} src="certificate-demo-0.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-1" onClick={() => changeTemplate(1)} src="certificate-demo-1.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-2" onClick={() => changeTemplate(2)} src="certificate-demo-2.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-3" onClick={() => changeTemplate(3)} src="certificate-demo-3.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-4" onClick={() => changeTemplate(4)} src="certificate-demo-4.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-5" onClick={() => changeTemplate(5)} src="certificate-demo-5.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-6" onClick={() => changeTemplate(6)} src="certificate-demo-6.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-7" onClick={() => changeTemplate(7)} src="certificate-demo-7.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-8" onClick={() => changeTemplate(8)} src="certificate-demo-8.jpeg" />
               </div>
             </div>
 

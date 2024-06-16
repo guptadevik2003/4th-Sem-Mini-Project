@@ -29,7 +29,7 @@ export default function Home() {
             </div>
 
             <div className='md:ml-7 mt-7 md:mt-0'>
-              <img className='w-full' src="/certificate.jpeg" alt="Demo Certificate" />
+              <img className='w-full' src="/certificate-demo-home.jpeg" alt="Demo Certificate" />
             </div>
 
           </div>
