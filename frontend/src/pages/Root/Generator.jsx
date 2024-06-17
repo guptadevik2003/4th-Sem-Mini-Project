@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from 'react';
 // import { useNavigate } from 'react-router-dom';
 
@@ -11,6 +12,8 @@ export default function Generator() {
   const [date, setDate] = useState("");
   const [sign, setSign] = useState("");
   const [file, setFile] = useState(null);
+  const [orgName, setOrgName] = useState("");
+  const [eventName, setEventName] = useState("");
 
   useEffect(() => {
     document.title = 'Generator - CertifyPro';
@@ -39,6 +42,10 @@ export default function Generator() {
       setDate(e.value);
     } else if(e.name === 'signature') {
       setSign(e.value);
+    } else if(e.name === 'orgName') {
+      setOrgName(e.value);
+    } else if(e.name === 'eventName') {
+      setEventName(e.value);
     }
   }
 
@@ -59,6 +66,8 @@ export default function Generator() {
     if(!desc.length) return alert("No Description!");
     if(!date.length) return alert("No Date!");
     if(!sign.length) return alert("No Signature!");
+    if(!orgName.length) return alert("No Organization Name!");
+    if(!eventName.length) return alert("No Event Name!");
     if(!file) return alert("No File!");
     
     let formData = new FormData();
@@ -68,6 +77,8 @@ export default function Generator() {
     formData.append('date', date);
     formData.append('signature', sign);
     formData.append('file', file);
+    formData.append('organization_name', orgName);
+    formData.append('event_name', eventName);
 
     await fetch('/api/generator', {
       method: 'POST',
@@ -75,6 +86,31 @@ export default function Generator() {
     })
     .then(res => res.json())
     .then(data => console.log(data))
+  }
+
+  async function handlePreview() {
+    if(!template) return alert("No Template!");
+    if(!title.length) return alert("No Title!");
+    if(!desc.length) return alert("No Description!");
+    if(!date.length) return alert("No Date!");
+    if(!sign.length) return alert("No Signature!");
+
+    await fetch('/api/generator/preview', {
+      method: 'POST',
+      body: new URLSearchParams({
+        "template": template,
+        "title": title,
+        "description": desc,
+        "date": date,
+        "signature": sign,
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(!data.success) return alert(data.error)
+      
+      document.getElementById('previewModal').classList.toggle('hidden')
+    })
   }
 
   return (
@@ -118,6 +154,7 @@ export default function Generator() {
 
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Description</h3>
                 <textarea value={desc} onChange={inputChangeMade} name="description" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
+                <p className='text-[#999] text-sm'>Supports {"<br>"} tag</p>
 
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Date</h3>
                 <input value={date} onChange={inputChangeMade} name="date" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
@@ -126,12 +163,38 @@ export default function Generator() {
                 <input value={sign} onChange={inputChangeMade} name="signature" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
               
               </div>
+
+              <button onClick={handlePreview} className='mt-6 bg-premiumbg text-premiumicon bg-opacity-[0.14] font-medium px-5 py-3 rounded-lg hover:bg-opacity-[0.25] border border-premiumborder border-opacity-[0]'>Preview</button>
+
             </div>
 
             <div className="mt-12">
 
               <h2 className='text-white font-medium md:text-2xl text-xl'>Upload Student Data</h2>
-              <p className="text-[#999] mt-1 mb-4">Upload an Excel file (.xlsx) containing only the names of your students.</p>
+              <p className="text-[#999] mt-1 mb-4">Upload an Excel file (.xlsx) with the heading "Name" and the students' names listed below it, like this:</p>
+
+              <table className='table-auto border-collapse text-[#999]'>
+                <thead>
+                  <tr className='bg-cardbgdark text-left'>
+                    <th className='px-4 py-2 border-[0.1px] border-[#999]'>0</th>
+                    <th className='px-4 py-2 border-[0.1px] border-[#999]'>Name</th>
+                  </tr>
+                </thead>
+                <tbody className='bg-transparent'>
+                  <tr>
+                    <td className='px-4 py-2 border-[0.1px] border-[#999]'>1</td>
+                    <td className='px-4 py-2 border-[0.1px] border-[#999]'>John Doe</td>
+                  </tr>
+                  <tr>
+                    <td className='px-4 py-2 border-[0.1px] border-[#999]'>2</td>
+                    <td className='px-4 py-2 border-[0.1px] border-[#999]'>Jane Smith</td>
+                  </tr>
+                  <tr>
+                    <td className='px-4 py-2 border-[0.1px] border-[#999]'>3</td>
+                    <td className='px-4 py-2 border-[0.1px] border-[#999]'>Emily Clark</td>
+                  </tr>
+                </tbody>
+              </table>
 
               <div className='mt-8 flex flex-col md:flex-row md:items-center'>
                 <div>
@@ -142,13 +205,37 @@ export default function Generator() {
               </div>
               
             </div>
+
+            <div className='mt-12'>
+
+              <h2 className='text-white font-medium md:text-2xl text-xl'>Enter Event Details</h2>
+              <p className='text-[#999] mt-1 mb-4'>Enter event data to be shown on the shareable link page.</p>
+
+              <div>
+
+                <h3 className="text-white text-lg font-medium mb-1 mt-4">Club / Organization Name</h3>
+                <input value={orgName} onChange={inputChangeMade} name="orgName" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
+
+                <h3 className="text-white text-lg font-medium mb-1 mt-4">Event Name</h3>
+                <input value={eventName} onChange={inputChangeMade} name="eventName" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
+
+              </div>
+            </div>
             
             <div className='mt-12'>
-              <button className='text-green-500 border border-green-500 px-5 py-3' onClick={handleSubmit} >Submit</button>
+              <button className='bg-discordgreen text-black px-5 py-3 rounded-lg border border-discordgreen hover:text-discordgreen hover:bg-transparent' onClick={handleSubmit} >Get Shareable Link</button>
             </div>
             
           </div>
 
+        </div>
+      </div>
+
+      <div className='hidden fixed z-10 left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-[0.4] flex items-center justify-center' id='previewModal'>
+        <div className='bg-cardbgdark rounded-lg w-[92%] p-5 max-w-2xl shadow'>
+          <h1 className='text-white font-medium md:text-3xl text-2xl'>Certificate Preview</h1>
+          <img src="/certificate-demo-home.jpeg" className='w-full rounded-lg mt-3 mb-5' />
+          <button className='text-white bg-blurple border border-blurple px-5 py-3 w-full rounded-lg hover:bg-blurplehover hover:border-blurplehover' onClick={() => document.getElementById('previewModal').classList.toggle('hidden')}>Close Preview</button>
         </div>
       </div>
 
