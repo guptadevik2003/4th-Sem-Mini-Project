@@ -74,6 +74,7 @@ router.post('/generator', multer().single('file'), async (req, res) => {
     description,
     date,
     signature,
+    students,
     organization_name,
     event_name,
     custom_link,
@@ -85,6 +86,16 @@ router.post('/generator', multer().single('file'), async (req, res) => {
   })
 
   res.json({ success: true, data: newCertificateData })
+})
+
+// /api/certificates/:custom_link ==DONE==
+router.get('/certificates/:custom_link', async (req, res) => {
+  const { custom_link } = req.params
+
+  let CertificateData = await CertificateSchema.findOne({ custom_link })
+  if(!CertificateData) return res.json({ success: false, error: 'Custom Link does not exist!' })
+
+  res.json({ success: true, data: CertificateData })
 })
 
 module.exports = router

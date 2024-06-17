@@ -22,6 +22,12 @@ export default function App() {
 
           <Route path='generator' element={<><Navbar /><Generator /><Footer /></>} />
 
+          <Route path='certificates/:custom_link'>
+
+            <Route path='' element={<><Navbar /><CertificatesHome /><Footer /></>} />
+
+          </Route>
+
           <Route path='*' element={<><Navbar /><PageNotFound /><Footer /></>} />
 
         </Route>
