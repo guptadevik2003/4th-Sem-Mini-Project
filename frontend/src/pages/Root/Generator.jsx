@@ -1,5 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from 'react';
+import { FaCheck, FaXmark } from 'react-icons/fa6';
 // import { useNavigate } from 'react-router-dom';
 
 export default function Generator() {
@@ -14,6 +15,8 @@ export default function Generator() {
   const [file, setFile] = useState(null);
   const [orgName, setOrgName] = useState("");
   const [eventName, setEventName] = useState("");
+  const [customLink, setCustomLink] = useState("");
+  const [linkVerified, setLinkVerified] = useState(false);
 
   useEffect(() => {
     document.title = 'Generator - CertifyPro';
@@ -46,6 +49,15 @@ export default function Generator() {
       setOrgName(e.value);
     } else if(e.name === 'eventName') {
       setEventName(e.value);
+    } else if(e.name === 'customLink') {
+      setCustomLink(e.value);
+      setLinkVerified(false);
+      document.getElementById('checkSpan').classList.remove('hidden');
+      document.getElementById('checkIconYes').classList.add('hidden');
+      document.getElementById('checkIconNo').classList.add('hidden');
+      document.getElementById('checkBtn').classList.add('bg-blurple');
+      document.getElementById('checkBtn').classList.remove('bg-green-500');
+      document.getElementById('checkBtn').classList.remove('bg-red-500');
     }
   }
 
@@ -60,6 +72,39 @@ export default function Generator() {
     setFile(file);
   }
 
+  async function handleCheck() {
+    const regex = /^[a-zA-Z0-9-]+$/;
+    if(!regex.test(customLink)) return alert("Custom Link can only include alphanumeric characters (A-Z, a-z, 0-9) and dashes (-)");
+
+    await fetch('/api/generator/verify-link', {
+      method: 'POST',
+      body: new URLSearchParams({ "custom_link": customLink })
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(!data.success) return alert(data.error);
+      
+      if(data.verified) {
+        setLinkVerified(true);
+        document.getElementById('checkIconYes').classList.remove('hidden');
+        document.getElementById('checkSpan').classList.add('hidden');
+        document.getElementById('checkIconNo').classList.add('hidden');
+        document.getElementById('checkBtn').classList.add('bg-green-500');
+        document.getElementById('checkBtn').classList.remove('bg-blurple');
+        document.getElementById('checkBtn').classList.remove('bg-red-500');
+      } else {
+        setLinkVerified(false);
+        document.getElementById('checkIconNo').classList.remove('hidden');
+        document.getElementById('checkSpan').classList.add('hidden');
+        document.getElementById('checkIconYes').classList.add('hidden');
+        document.getElementById('checkBtn').classList.add('bg-red-500');
+        document.getElementById('checkBtn').classList.remove('bg-blurple');
+        document.getElementById('checkBtn').classList.remove('bg-green-500');
+      }
+    })
+
+  }
+
   async function handleSubmit() {
     if(!template) return alert("No Template!");
     if(!title.length) return alert("No Title!");
@@ -69,6 +114,8 @@ export default function Generator() {
     if(!orgName.length) return alert("No Organization Name!");
     if(!eventName.length) return alert("No Event Name!");
     if(!file) return alert("No File!");
+    if(!customLink) return alert("No Custom Link!");
+    if(!linkVerified) return alert("Custom Link not Checked!");
     
     let formData = new FormData();
     formData.append('template', template);
@@ -79,13 +126,17 @@ export default function Generator() {
     formData.append('file', file);
     formData.append('organization_name', orgName);
     formData.append('event_name', eventName);
+    formData.append('custom_link', customLink);
 
     await fetch('/api/generator', {
       method: 'POST',
       body: formData,
     })
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => {
+      if(!data.success) return alert(data.error);
+
+    })
   }
 
   async function handlePreview() {
@@ -120,7 +171,7 @@ export default function Generator() {
         <div className='md:w-[65%] w-[92%] mx-auto py-10 md:py-40'>
 
           <h1 className='text-center text-white font-semibold md:text-4xl text-3xl'>Create Your Certificate</h1>
-          <h2 className="my-5 text-center text-[#999] text-2xl">Select a template, enter some values and hit PLACEHOLDER to get your certificates</h2>
+          <h2 className="my-5 text-center text-[#999] text-2xl">Select a template, enter some values and hit Generate to get your certificates</h2>
 
           <div className="bg-screenbglight rounded-lg p-6 md:p-8">
 
@@ -219,11 +270,18 @@ export default function Generator() {
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Event Name</h3>
                 <input value={eventName} onChange={inputChangeMade} name="eventName" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
 
+                <h3 className="text-white text-lg font-medium mb-1 mt-4">Custom Link</h3>
+                <div className='bg-cardbgdark rounded-lg flex'>
+                  <input value={customLink} onChange={inputChangeMade} name="customLink" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
+                  <button onClick={handleCheck} id='checkBtn' className='text-white bg-blurple rounded-lg m-1 w-[90px] flex items-center justify-center'><span className='font-medium' id='checkSpan'>Check</span><FaCheck className='hidden' id='checkIconYes' size={32} /><FaXmark className='hidden' id='checkIconNo' size={32} /></button>
+                </div>
+                <p className='text-[#999] text-sm mt-2'>https://certifypro.me/certificates/{customLink}</p>
+
               </div>
             </div>
             
             <div className='mt-12'>
-              <button className='bg-discordgreen text-black px-5 py-3 rounded-lg border border-discordgreen hover:text-discordgreen hover:bg-transparent' onClick={handleSubmit} >Get Shareable Link</button>
+              <button className='bg-discordgreen text-black px-5 py-3 rounded-lg border border-discordgreen hover:text-discordgreen hover:bg-transparent' onClick={handleSubmit} >Generate</button>
             </div>
             
           </div>
@@ -231,6 +289,7 @@ export default function Generator() {
         </div>
       </div>
 
+      {/* Preview Modal Starts */}
       <div className='hidden fixed z-10 left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-[0.4] flex items-center justify-center' id='previewModal'>
         <div className='bg-cardbgdark rounded-lg w-[92%] p-5 max-w-2xl shadow'>
           <h1 className='text-white font-medium md:text-3xl text-2xl'>Certificate Preview</h1>
@@ -238,6 +297,7 @@ export default function Generator() {
           <button className='text-white bg-blurple border border-blurple px-5 py-3 w-full rounded-lg hover:bg-blurplehover hover:border-blurplehover' onClick={() => document.getElementById('previewModal').classList.toggle('hidden')}>Close Preview</button>
         </div>
       </div>
+      {/* Preview Modal Ends */}
 
     </div>
   );

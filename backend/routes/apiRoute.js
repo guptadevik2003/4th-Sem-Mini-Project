@@ -4,10 +4,26 @@ const multer = require('multer')
 
 // Custom Modules
 const parseExcel = require('../utils/parseExcel')
+const CertificateSchema = require('../schemas/Certificate')
 
-// /api
+// /api ==DONE==
 router.get('/', async (req, res) => {
   res.status(200).json({ success: true, message: `API Route Working!`, timestamp: Date.now() })
+})
+
+// /api/generator/verify-link POST ==DONE==
+router.post('/generator/verify-link', async (req, res) => {
+  const { custom_link } = req.body
+
+  if(!custom_link) return res.json({ success: false, error: 'Custom Link undefined!' })
+
+  let CertificateData = await CertificateSchema.findOne({ custom_link })
+
+  if(CertificateData) {
+    res.json({ success: true, verified: false })
+  } else {
+    res.json({ success: true, verified: true })
+  }
 })
 
 // /api/generator/preview POST
@@ -25,9 +41,9 @@ router.post('/generator/preview', async (req, res) => {
   res.json({ success: true })
 })
 
-// /api/generator POST
+// /api/generator POST ==DONE==
 router.post('/generator', multer().single('file'), async (req, res) => {
-  const { template, title, description, date, signature, organization_name, event_name } = req.body
+  const { template, title, description, date, signature, organization_name, event_name, custom_link } = req.body
   const file = req.file
 
   if(!template) return res.json({ success: false, error: 'Template undefined!' })
@@ -39,6 +55,7 @@ router.post('/generator', multer().single('file'), async (req, res) => {
   if(!signature) return res.json({ success: false, error: 'Signature undefined!' })
   if(!organization_name) return res.json({ success: false, error: 'Organization Name undefined!' })
   if(!event_name) return res.json({ success: false, error: 'Event Name undefined!' })
+  if(!custom_link) return res.json({ success: false, error: 'Custom Link undefined!' })
 
   if(!file) return res.json({ success: false, error: 'File not uploaded!' })
   if(!file.originalname.endsWith('.xlsx')) return res.json({ success: false, error: 'Wrong filetype uploaded (Required: .xlsx)!' })
@@ -46,9 +63,28 @@ router.post('/generator', multer().single('file'), async (req, res) => {
   let students = []
   await (await parseExcel(file.buffer)).forEach(s => students.push(s.Name))
 
-  console.log(students)
+  if(students.includes(undefined)) return res.json({ success: false, error: 'Error Occurred while parsing Excel, check your data and make sure there are no other columns or empty rows.' })
 
-  res.json({ success: false })
+  let CertificateData = await CertificateSchema.findOne({ custom_link })
+  if(CertificateData) return res.json({ success: false, error: 'Custom Link already exists!' })
+
+  let newCertificateData = await CertificateSchema.create({
+    template: Number(template),
+    title,
+    description,
+    date,
+    signature,
+    organization_name,
+    event_name,
+    custom_link,
+  })
+
+  await newCertificateData.save().catch(err => {
+    console.log(err)
+    return res.json({ success: false, error: 'Error while saving data to Database!' })
+  })
+
+  res.json({ success: true, data: newCertificateData })
 })
 
 module.exports = router
