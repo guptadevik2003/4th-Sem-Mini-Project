@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-// Pages - Root
-import Home from 'pages/Root/Home';
-import PageNotFound from 'pages/Root/PageNotFound';
-import Generator from 'pages/Root/Generator';
+// Pages
+import Home from 'pages/Home';
+import PageNotFound from 'pages/PageNotFound';
+import Generator from 'pages/Generator';
+import CertificatesHome from 'pages/CertificatesHome';
 
 // Components
 import Navbar from 'components/Navbar';
