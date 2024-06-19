@@ -5,6 +5,8 @@ const multer = require('multer')
 // Custom Modules
 const parseExcel = require('../utils/parseExcel')
 const CertificateSchema = require('../schemas/Certificate')
+const removeExtraSpace = require('../utils/removeExtraSpace')
+const editCert = require('../utils/editCert')
 
 // /api ==DONE==
 router.get('/', async (req, res) => {
@@ -28,7 +30,7 @@ router.post('/generator/verify-link', async (req, res) => {
 
 // /api/generator/preview POST
 router.post('/generator/preview', async (req, res) => {
-  const { template, title, description, date, signature } = req.body
+  let { template, title, description, date, signature } = req.body
 
   if(!template) return res.json({ success: false, error: 'Template undefined!' })
   if(Number(template)<0 || Number(template)>8) return res.json({ success: false, error: 'Template out of range!' })
@@ -38,7 +40,11 @@ router.post('/generator/preview', async (req, res) => {
   if(!date) return res.json({ success: false, error: 'Date undefined!' })
   if(!signature) return res.json({ success: false, error: 'Signature undefined!' })
 
-  res.json({ success: true })
+  let certImg = await editCert({ template, title, description, date, signature })
+
+  let certImgBase64 = certImg.toString('base64')
+
+  res.json({ success: true, data: certImgBase64 })
 })
 
 // /api/generator POST ==DONE==

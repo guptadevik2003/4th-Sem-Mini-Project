@@ -106,7 +106,7 @@ export default function Generator() {
   }
 
   async function handleSubmit() {
-    if(!template) return alert("No Template!");
+    if(template == null || template < 0 || template > 8) return alert("No Template!");
     if(!title.length) return alert("No Title!");
     if(!desc.length) return alert("No Description!");
     if(!date.length) return alert("No Date!");
@@ -140,7 +140,7 @@ export default function Generator() {
   }
 
   async function handlePreview() {
-    if(!template) return alert("No Template!");
+    if(template == null || template < 0 || template > 8) return alert("No Template!");
     if(!title.length) return alert("No Title!");
     if(!desc.length) return alert("No Description!");
     if(!date.length) return alert("No Date!");
@@ -159,8 +159,10 @@ export default function Generator() {
     .then(res => res.json())
     .then(data => {
       if(!data.success) return alert(data.error)
+
+      document.getElementById('previewModalImg').src = `data:image/png;base64,${data.data}`;
       
-      document.getElementById('previewModal').classList.toggle('hidden')
+      document.getElementById('previewModal').classList.toggle('hidden');
     })
   }
 
@@ -201,11 +203,12 @@ export default function Generator() {
               <div>
 
                 <h3 className="text-white text-lg font-medium mb-1">Title</h3>
-                <input value={title} onChange={inputChangeMade} name="title" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
+                <textarea value={title} onChange={inputChangeMade} name="title" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
+                <p className='text-[#999] text-sm'>Supports 2 lines</p>
 
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Description</h3>
                 <textarea value={desc} onChange={inputChangeMade} name="description" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
-                <p className='text-[#999] text-sm'>Supports {"<br>"} tag</p>
+                <p className='text-[#999] text-sm'>Supports 4 lines</p>
 
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Date</h3>
                 <input value={date} onChange={inputChangeMade} name="date" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
@@ -293,7 +296,7 @@ export default function Generator() {
       <div className='hidden fixed z-10 left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-[0.4] flex items-center justify-center' id='previewModal'>
         <div className='bg-cardbgdark rounded-lg w-[92%] p-5 max-w-2xl shadow'>
           <h1 className='text-white font-medium md:text-3xl text-2xl'>Certificate Preview</h1>
-          <img src="/certificate-demo-home.jpeg" className='w-full rounded-lg mt-3 mb-5' />
+          <img id='previewModalImg' className='w-full rounded-lg mt-3 mb-5' />
           <button className='text-white bg-blurple border border-blurple px-5 py-3 w-full rounded-lg hover:bg-blurplehover hover:border-blurplehover' onClick={() => document.getElementById('previewModal').classList.toggle('hidden')}>Close Preview</button>
         </div>
       </div>
