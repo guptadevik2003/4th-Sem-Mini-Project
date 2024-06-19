@@ -65,4 +65,37 @@ module.exports = [
       hPos: 1375,
     },
   },
+  {
+    templatePath: "templates/2.png",
+    title: {
+      fontPath: "fonts/2/Economica-Regular-110/Economica-Regular-110.fnt",
+      vPos: 65,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/2/Economica-Bold-120/Economica-Bold-120.fnt",
+      vPos: 530,
+    },
+    description: {
+      fontPath: "fonts/2/Aileron-Regular-40/Aileron-Regular-40.fnt",
+      vPos: 750,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/2/Aileron-Regular-40/Aileron-Regular-40.fnt",
+      vPos: 1110,
+      lPos: 150,
+      rPos: 875,
+    },
+    signature: {
+      fontPath: "fonts/2/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 1040,
+      hPos: 1475,
+    },
+    signName: {
+      fontPath: "fonts/2/Aileron-Regular-40/Aileron-Regular-40.fnt",
+      vPos: 1160,
+      hPos: 1475,
+    },
+  },
 ];
