@@ -98,4 +98,37 @@ module.exports = [
       hPos: 1475,
     },
   },
+  {
+    templatePath: "templates/3.png",
+    title: {
+      fontPath: "fonts/3/BlackMango-Regular-110/BlackMango-Regular-110.fnt",
+      vPos: 250,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/3/PinyonScript-Regular-140/PinyonScript-Regular-140.fnt",
+      vPos: 580,
+    },
+    description: {
+      fontPath: "fonts/3/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 795,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/3/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 1105,
+      lPos: 250,
+      rPos: 850,
+    },
+    signature: {
+      fontPath: "fonts/3/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 1035,
+      hPos: 1485,
+    },
+    signName: {
+      fontPath: "fonts/3/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 1155,
+      hPos: 1485,
+    },
+  },
 ];
