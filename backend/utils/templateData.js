@@ -28,7 +28,7 @@ module.exports = [
     },
     signName: {
       fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
-      vPos: 1125,
+      vPos: 1105,
       hPos: 1475,
     },
   },
@@ -56,7 +56,7 @@ module.exports = [
     },
     signature: {
       fontPath: "fonts/1/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
-      vPos: 980,
+      vPos: 1005,
       hPos: 1375,
     },
     signName: {
@@ -167,34 +167,34 @@ module.exports = [
   {
     templatePath: "templates/5.png",
     title: {
-      fontPath: "fonts/0/GuildaDisplay-Regular-110/GuildaDisplay-Regular-110.fnt",
-      vPos: 250,
+      fontPath: "fonts/5/GentySans-Regular-110/GentySans-Regular-110.fnt",
+      vPos: 175,
       offset: 130,
     },
     name: {
-      fontPath: "fonts/0/AlexBrush-Regular-120/AlexBrush-Regular-120.fnt",
-      vPos: 570,
+      fontPath: "fonts/5/HitchHike-Regular-120/HitchHike-Regular-120.fnt",
+      vPos: 475,
     },
     description: {
-      fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
-      vPos: 775,
+      fontPath: "fonts/5/ComicRelief-Regular-40/ComicRelief-Regular-40.fnt",
+      vPos: 665,
       offset: 60,
     },
     date: {
-      fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
-      vPos: 1070,
+      fontPath: "fonts/5/ComicRelief-Regular-40/ComicRelief-Regular-40.fnt",
+      vPos: 1055,
       lPos: 110,
       rPos: 900,
     },
     signature: {
-      fontPath: "fonts/0/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
-      vPos: 965,
-      hPos: 1475,
+      fontPath: "fonts/5/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 980,
+      hPos: 1450,
     },
     signName: {
-      fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
-      vPos: 1125,
-      hPos: 1475,
+      fontPath: "fonts/5/ComicRelief-Regular-40/ComicRelief-Regular-40.fnt",
+      vPos: 1105,
+      hPos: 1450,
     },
   },
 ];
