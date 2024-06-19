@@ -131,4 +131,70 @@ module.exports = [
       hPos: 1485,
     },
   },
+  {
+    templatePath: "templates/4.png",
+    title: {
+      fontPath: "fonts/4/Agrandir-Regular-110/Agrandir-Regular-110.fnt",
+      vPos: 230,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/4/AlexBrush-Regular-120/AlexBrush-Regular-120.fnt",
+      vPos: 550,
+    },
+    description: {
+      fontPath: "fonts/4/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 775,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/4/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 1100,
+      lPos: 400,
+      rPos: 950,
+    },
+    signature: {
+      fontPath: "fonts/4/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 1025,
+      hPos: 1275,
+    },
+    signName: {
+      fontPath: "fonts/4/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 1140,
+      hPos: 1275,
+    },
+  },
+  {
+    templatePath: "templates/5.png",
+    title: {
+      fontPath: "fonts/0/GuildaDisplay-Regular-110/GuildaDisplay-Regular-110.fnt",
+      vPos: 250,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/0/AlexBrush-Regular-120/AlexBrush-Regular-120.fnt",
+      vPos: 570,
+    },
+    description: {
+      fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 775,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 1070,
+      lPos: 110,
+      rPos: 900,
+    },
+    signature: {
+      fontPath: "fonts/0/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 965,
+      hPos: 1475,
+    },
+    signName: {
+      fontPath: "fonts/0/TimesNew-Roman-40/TimesNew-Roman-40.fnt",
+      vPos: 1125,
+      hPos: 1475,
+    },
+  },
 ];
