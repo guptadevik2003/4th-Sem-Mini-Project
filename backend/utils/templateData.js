@@ -197,4 +197,37 @@ module.exports = [
       hPos: 1450,
     },
   },
+  {
+    templatePath: "templates/6.png",
+    title: {
+      fontPath: "fonts/6/Lustria-Regular-110/Lustria-Regular-110.fnt",
+      vPos: 225,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/6/PinyonScript-Regular-140/PinyonScript-Regular-140.fnt",
+      vPos: 545,
+    },
+    description: {
+      fontPath: "fonts/6/HeroLight-Regular-40/HeroLight-Regular-40.fnt",
+      vPos: 750,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/6/Poppins-Medium-40/Poppins-Medium-40.fnt",
+      vPos: 1020,
+      lPos: 300,
+      rPos: 950,
+    },
+    signature: {
+      fontPath: "fonts/6/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 950,
+      hPos: 1475,
+    },
+    signName: {
+      fontPath: "fonts/6/Poppins-Medium-40/Poppins-Medium-40.fnt",
+      vPos: 1060,
+      hPos: 1475,
+    },
+  },
 ];
