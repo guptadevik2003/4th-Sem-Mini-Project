@@ -230,4 +230,37 @@ module.exports = [
       hPos: 1475,
     },
   },
+  {
+    templatePath: "templates/7.png",
+    title: {
+      fontPath: "fonts/7/Inter-Bold-110/Inter-Bold-110.fnt",
+      vPos: 225,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/7/PinyonScript-Regular-140/PinyonScript-Regular-140.fnt",
+      vPos: 550,
+    },
+    description: {
+      fontPath: "fonts/7/Inter-Regular-40/Inter-Regular-40.fnt",
+      vPos: 760,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/7/Inter-Regular-40/Inter-Regular-40.fnt",
+      vPos: 1110,
+      lPos: 100,
+      rPos: 900,
+    },
+    signature: {
+      fontPath: "fonts/7/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 1030,
+      hPos: 1390,
+    },
+    signName: {
+      fontPath: "fonts/7/Inter-Regular-40/Inter-Regular-40.fnt",
+      vPos: 1150,
+      hPos: 1390,
+    },
+  },
 ];
