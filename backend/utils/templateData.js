@@ -33,6 +33,36 @@ module.exports = [
     },
   },
   {
-
+    templatePath: "templates/1.png",
+    title: {
+      fontPath: "fonts/1/Alta-Regular-110/Alta-Regular-110.fnt",
+      vPos: 250,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/1/GreatVibes-Regular-120/GreatVibes-Regular-120.fnt",
+      vPos: 580,
+    },
+    description: {
+      fontPath: "fonts/1/Cardo-Regular-40/Cardo-Regular-40.fnt",
+      vPos: 775,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/1/Cardo-Bold-40/Cardo-Bold-40.fnt",
+      vPos: 1070,
+      lPos: 150,
+      rPos: 1000,
+    },
+    signature: {
+      fontPath: "fonts/1/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 980,
+      hPos: 1375,
+    },
+    signName: {
+      fontPath: "fonts/1/Cardo-Bold-40/Cardo-Bold-40.fnt",
+      vPos: 1125,
+      hPos: 1375,
+    },
   },
 ];

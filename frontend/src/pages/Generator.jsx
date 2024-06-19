@@ -184,7 +184,7 @@ export default function Generator() {
 
               <div className="grid md:grid-cols-3 gap-3">
                 <img className="w-full border-4 border-transparent cursor-pointer template template-0" onClick={() => changeTemplate(0)} src="certificate-demo-0.png" />
-                <img className="w-full border-4 border-transparent cursor-pointer template template-1" onClick={() => changeTemplate(1)} src="certificate-demo-1.jpeg" />
+                <img className="w-full border-4 border-transparent cursor-pointer template template-1" onClick={() => changeTemplate(1)} src="certificate-demo-1.png" />
                 <img className="w-full border-4 border-transparent cursor-pointer template template-2" onClick={() => changeTemplate(2)} src="certificate-demo-2.jpeg" />
                 <img className="w-full border-4 border-transparent cursor-pointer template template-3" onClick={() => changeTemplate(3)} src="certificate-demo-3.jpeg" />
                 <img className="w-full border-4 border-transparent cursor-pointer template template-4" onClick={() => changeTemplate(4)} src="certificate-demo-4.jpeg" />
