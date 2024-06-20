@@ -135,7 +135,7 @@ export default function Generator() {
     .then(res => res.json())
     .then(data => {
       if(!data.success) return alert(data.error);
-
+      document.getElementById('submitModal').classList.toggle('hidden');
     })
   }
 
@@ -164,6 +164,21 @@ export default function Generator() {
       
       document.getElementById('previewModal').classList.toggle('hidden');
     })
+  }
+
+  window.onclick = function(event) {
+    if(event.target == document.getElementById('previewModal')) {
+      document.getElementById('previewModal').classList.toggle('hidden');
+    }
+    if(event.target == document.getElementById('submitModal')) {
+      document.getElementById('submitModal').classList.toggle('hidden');
+    }
+  }
+
+  async function handleCopy() {
+    let copyText = `https://certifypro.me/certificates/${customLink}`;
+    navigator.clipboard.writeText(copyText);
+    alert("Copied the link: "+copyText);
   }
 
   return (
@@ -301,6 +316,19 @@ export default function Generator() {
         </div>
       </div>
       {/* Preview Modal Ends */}
+
+      {/* Submit Modal Starts */}
+      <div className='hidden fixed z-20 left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-[0.4] flex items-center justify-center' id='submitModal'>
+        <div className='bg-cardbgdark rounded-lg w-[92%] p-5 max-w-2xl shadow'>
+          <h1 className='text-white font-medium md:text-3xl text-2xl'>Share Certificate Link</h1>
+          <input value={`https://certifypro.me/certificates/${customLink}`} className='w-[100%] rounded-lg bg-screenbglight bg-opacity-50 text-[#999] px-2 py-3 mt-4 mb-6 focus:outline-none' disabled/>
+          <div className='mb-1 w-full justify-between flex'>
+            <button className='bg-transparent text-white p-3 rounded-lg border border-white hover:text-[#999] hover:border-[#999]' onClick={handleCopy} >Copy Link</button>
+            <button className='bg-blurple text-white px-5 py-3 rounded-lg border border-blurple hover:bg-blurplehover hover:border-blurplehover' onClick={() => document.getElementById('submitModal').classList.toggle('hidden')} >Done</button>
+          </div>
+        </div>
+      </div>
+      {/* Submit Modal Ends */}
 
     </div>
   );
