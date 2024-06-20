@@ -1,11 +1,13 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
+const { PDFDocument, rgb } = require('pdf-lib')
 
 // Custom Modules
 const parseExcel = require('../utils/parseExcel')
 const CertificateSchema = require('../schemas/Certificate')
 const removeExtraSpace = require('../utils/removeExtraSpace')
+const titleCase = require('../utils/titleCase')
 const editCert = require('../utils/editCert')
 
 // /api ==DONE==
@@ -28,7 +30,7 @@ router.post('/generator/verify-link', async (req, res) => {
   }
 })
 
-// /api/generator/preview POST
+// /api/generator/preview POST ==DONE==
 router.post('/generator/preview', async (req, res) => {
   let { template, title, description, date, signature } = req.body
 
@@ -97,11 +99,68 @@ router.post('/generator', multer().single('file'), async (req, res) => {
 // /api/certificates/:custom_link ==DONE==
 router.get('/certificates/:custom_link', async (req, res) => {
   const { custom_link } = req.params
+  
+  let CertificateData = await CertificateSchema.findOne({ custom_link })
+  if(!CertificateData) return res.json({ success: false, error: 'Custom Link does not exist!' })
+    
+  res.json({ success: true, data: CertificateData })
+})
+
+// /api/certificates/:custom_link/download POST ==DONE==
+router.post('/certificates/:custom_link/download', async (req, res) => {
+  const { custom_link } = req.params
+  let { student, fileType } = req.body;
+
+  if(!student) return res.json({ success: false, error: "student undefined!" })
+  if(!fileType) return res.json({ success: false, error: "fileType undefined!" })
+  if(!["pdf","png"].includes(fileType)) return res.json({ success: false, error: "Wrong fileType!" })
 
   let CertificateData = await CertificateSchema.findOne({ custom_link })
   if(!CertificateData) return res.json({ success: false, error: 'Custom Link does not exist!' })
 
-  res.json({ success: true, data: CertificateData })
-})
+  if(!CertificateData.students.includes(student)) return res.json({ success: false, error: "Student not allowed for this certificate!" })
 
+  student = removeExtraSpace(student)
+  student = titleCase(student)
+
+  let certImg = await editCert({
+    template: CertificateData.template,
+    title: CertificateData.title,
+    name: student,
+    description: CertificateData.description,
+    date: CertificateData.date,
+    signature: CertificateData.signature,
+  })
+
+  if(fileType === 'png') return res.json({
+    success: true,
+    data: certImg.toString('base64'),
+    fileName: `${student}.png`,
+  });
+
+  const pdfDoc = await PDFDocument.create()
+  const page = pdfDoc.addPage([2000,1414])
+
+  const imageEmbed = await pdfDoc.embedPng(certImg)
+  const { width, height } = imageEmbed.scaleToFit(page.getWidth(), page.getHeight())
+
+  page.drawImage(imageEmbed, {
+    x: page.getWidth() / 2 - width / 2,
+    y: page.getHeight() / 2 - height / 2,
+    width,
+    height,
+    color: rgb(1,1,1),
+  })
+
+  const pdfBytes = await pdfDoc.save()
+
+  let base64 = Buffer.from(pdfBytes).toString('base64')
+
+  return res.json({
+    success: true,
+    data: base64,
+    fileName: `${student}.pdf`,
+  })
+})
+  
 module.exports = router

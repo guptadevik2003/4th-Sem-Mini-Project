@@ -37,12 +37,14 @@ module.exports = async ({ template, title, name="John Doe", description, date, s
     CTD.title.vPos,
     title[0],
   );
-  await certificate.print(
-    titleFont,
-    getHorizontalCenter(certificate, titleFont, title[1]),
-    CTD.title.vPos + CTD.title.offset,
-    title[1],
-  );
+  if(title[1]) {
+    await certificate.print(
+      titleFont,
+      getHorizontalCenter(certificate, titleFont, title[1]),
+      CTD.title.vPos + CTD.title.offset,
+      title[1],
+    );
+  }
 
   // Printing Name
   await certificate.print(

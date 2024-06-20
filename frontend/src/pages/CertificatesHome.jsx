@@ -2,13 +2,15 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { FaDownload, FaSearch } from 'react-icons/fa';
+import { FaDownload, FaSearch, FaFilePdf, FaImage } from 'react-icons/fa';
+import { FaCloudArrowDown } from 'react-icons/fa6';
 
 export default function CertificatesHome() {
   const navigate = useNavigate();
   const { custom_link } = useParams();
   const [certData, setCertData] = useState(null);
   const [filterQuery, setFilterQuery] = useState('');
+  const [studentName, setStudentName] = useState(null);
 
   useEffect(() => {
     document.title = 'Loading - CertifyPro';
@@ -31,6 +33,40 @@ export default function CertificatesHome() {
     fetchData();
 
   }, [custom_link]);
+
+  async function downloadHandler(fileType) {
+    await fetch(`/api/certificates/${custom_link}/download`, {
+      method: 'POST',
+      body: new URLSearchParams({
+        student: studentName,
+        fileType,
+      }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      if(!data.success) return alert(data.error);
+
+      let dataURL
+      if(fileType === 'png') {
+        dataURL = `data:image/png;base64,${data.data}`;
+      }
+      if(fileType === 'pdf') {
+        dataURL = `data:application/pdf;base64,${data.data}`;
+      }
+
+      let downloadLink = document.createElement('a')
+      downloadLink.href = dataURL
+      downloadLink.download = data.fileName
+
+      downloadLink.click();
+
+    })
+  }
+
+  async function handleClick(student) {
+    setStudentName(student);
+    document.getElementById('downloadModal').classList.toggle('hidden');
+  }
 
   function RenderStudents({ students }) {
     students = students.sort((a, b) => { if(a<b) return -1; if(a>b) return 1; return 0; })
@@ -61,12 +97,18 @@ export default function CertificatesHome() {
 
             </div>
 
-            <button className='text-white bg-blurple hover:bg-blurplehover rounded-lg p-2'><FaDownload size={20} /></button>
+            <button className='text-white bg-blurple hover:bg-blurplehover rounded-lg p-2' onClick={() => handleClick(student)}><FaDownload size={20} /></button>
 
           </div>
         );
       })
     );
+  }
+
+  window.onclick = function(event) {
+    if(event.target == document.getElementById('downloadModal')) {
+      document.getElementById('downloadModal').classList.toggle('hidden');
+    }
   }
 
   // Data is Loading
@@ -100,6 +142,23 @@ export default function CertificatesHome() {
       </div>
       
       <RenderStudents students={certData.students} />
+
+      {/* Download Modal Start */}
+      <div className='hidden fixed z-10 left-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-[0.4] flex items-center justify-center' id='downloadModal'>
+        <div className='bg-cardbgdark rounded-lg w-[92%] px-5 py-7 max-w-lg shadow text-center flex flex-col items-center'>
+          <h1 className='text-white font-semibold text-2xl md:3xl mb-1'>Download</h1>
+          <p className='text-[#999] text-lg'>Do you want to proceed with <br className='hidden md:block' />download for <span className='font-semibold text-[#aaa]'>{studentName}</span>?</p>
+          <div className='bg-iconbg my-10 w-[200px] h-[200px] rounded-full flex items-center justify-center border-2 border-blurple'>
+            <FaCloudArrowDown className='text-blurple' size={90} />
+          </div>
+          <div className='flex flex-col gap-3'>
+            <button onClick={() => downloadHandler('pdf')} className='bg-blurple text-white flex items-center justify-center font-medium w-72 px-3 py-3 gap-1 rounded-lg hover:bg-blurplehover'><FaFilePdf size={30} />Download PDF</button>
+            <button onClick={() => downloadHandler('png')} className='bg-blurple text-white flex items-center justify-center font-medium w-72 px-3 py-3 gap-2 rounded-lg hover:bg-blurplehover'><FaImage size={30} />Download Image</button>
+          </div>
+          <button className='text-blurple font-medium w-72 px-5 py-3 rounded-lg bg-blurple bg-opacity-15 hover:bg-opacity-25 mt-10' onClick={() => document.getElementById('downloadModal').classList.toggle('hidden')}>Cancel</button>
+        </div>
+      </div>
+      {/* Download Modal Ends */}
 
     </div>
   );
