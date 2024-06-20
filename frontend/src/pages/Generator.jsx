@@ -208,7 +208,7 @@ export default function Generator() {
 
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Description</h3>
                 <textarea value={desc} onChange={inputChangeMade} name="description" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />
-                <p className='text-[#999] text-sm'>Supports 4 lines</p>
+                <p className='text-[#999] text-sm'>Supports 3 lines</p>
 
                 <h3 className="text-white text-lg font-medium mb-1 mt-4">Date</h3>
                 <input value={date} onChange={inputChangeMade} name="date" className="w-[100%] rounded-lg bg-cardbgdark text-white p-2 focus:outline-none" type="text" />

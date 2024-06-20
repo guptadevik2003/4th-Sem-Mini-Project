@@ -263,4 +263,37 @@ module.exports = [
       hPos: 1390,
     },
   },
+  {
+    templatePath: "templates/8.png",
+    title: {
+      fontPath: "fonts/8/Poppins-Bold-110/Poppins-Bold-110.fnt",
+      vPos: 250,
+      offset: 130,
+    },
+    name: {
+      fontPath: "fonts/8/GreatVibes-Regular-120/GreatVibes-Regular-120.fnt",
+      vPos: 570,
+    },
+    description: {
+      fontPath: "fonts/8/Poppins-Regular-40/Poppins-Regular-40.fnt",
+      vPos: 775,
+      offset: 60,
+    },
+    date: {
+      fontPath: "fonts/8/Poppins-Bold-40/Poppins-Bold-40.fnt",
+      vPos: 1070,
+      lPos: 275,
+      rPos: 925,
+    },
+    signature: {
+      fontPath: "fonts/8/Amsterdam-Four-40/Amsterdam-Four-40.fnt",
+      vPos: 1000,
+      hPos: 1400,
+    },
+    signName: {
+      fontPath: "fonts/8/Poppins-Bold-40/Poppins-Bold-40.fnt",
+      vPos: 1110,
+      hPos: 1400,
+    },
+  },
 ];
