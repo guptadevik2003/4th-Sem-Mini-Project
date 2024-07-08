@@ -166,6 +166,13 @@ export default function Generator() {
     })
   }
 
+  async function handleSampleInput() {
+    setTitle('Certificate of Outstanding\nAchievement');
+    setDesc('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras arcu\nmetus, feugiat vitae ante ac, aliquet tempus ante. In euismod nibh eget\nlacinia imperdiet.');
+    setDate('11 September 2024');
+    setSign('Devik Gupta');
+  }
+
   window.onclick = function(event) {
     if(event.target == document.getElementById('previewModal')) {
       document.getElementById('previewModal').classList.toggle('hidden');
@@ -233,7 +240,8 @@ export default function Generator() {
               
               </div>
 
-              <button onClick={handlePreview} className='mt-6 bg-premiumbg text-premiumicon bg-opacity-[0.14] font-medium px-5 py-3 rounded-lg hover:bg-opacity-[0.25] border border-premiumborder border-opacity-[0]'>Preview</button>
+              <button onClick={handlePreview} className='mt-6 bg-premiumbg text-premiumicon bg-opacity-[0.14] font-medium px-5 py-3 rounded-lg hover:bg-opacity-[0.25] border border-premiumborder border-opacity-[0] mr-3'>Preview</button>
+              <button onClick={handleSampleInput} className='mt-6 text-white bg-blurple font-medium px-5 py-3 rounded-lg border-blurple hover:bg-blurplehover hover:border-blurplehover'>Sample Data</button>
 
             </div>
 
