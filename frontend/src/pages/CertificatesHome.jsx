@@ -130,7 +130,7 @@ export default function CertificatesHome() {
 
   // Everything is Working Fine
   return (
-    <div className='md:w-[50%] w-[92%] mx-auto h-[90vh] py-5'>
+    <div className='md:w-[50%] w-[92%] mx-auto min-h-[90vh] py-5'>
 
       <h1 className="text-white font-bold md:text-4xl text-3xl text-center mb-1">{certData.event_name}</h1>
       
