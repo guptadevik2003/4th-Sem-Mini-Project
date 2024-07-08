@@ -26,8 +26,9 @@ export default function Footer() {
 
           <div className="basis-1/5">
             <h3 className="text-white mb-6 mt-6 md:mt-0 font-medium">Resources</h3>
-            <button onClick={() => { window.open('https://www.flaticon.com/authors/freepik', '_blank') }} className="text-[#999] hover:text-[#ddd] text-sm mb-[10px] block">Freepik</button>
-            <button onClick={() => { window.open('https://www.flaticon.com', '_blank') }} className="text-[#999] hover:text-[#ddd] text-sm block">Flaticon</button>
+            <button onClick={() => { window.open('https://www.flaticon.com/authors/freepik', '_blank') }} className="text-[#999] hover:text-[#ddd] text-sm block">Freepik</button>
+            <button onClick={() => { window.open('https://www.flaticon.com', '_blank') }} className="text-[#999] hover:text-[#ddd] text-sm block my-[10px]">Flaticon</button>
+            <button onClick={() => { window.open('https://www.canva.com/certificates/templates', '_blank') }} className='text-[#999] hover:text-[#ddd] text-sm block'>Canva</button>
           </div>
 
         </div>
