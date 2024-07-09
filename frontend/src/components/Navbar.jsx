@@ -25,12 +25,6 @@ export default function Navbar() {
             <li>
               <button onClick={() => { showHideNavbar(); navigate('/generator'); }} className='text-[#999] hover:text-[#ddd]'>Generator</button>
             </li>
-            <li>
-              <button onClick={() => { showHideNavbar(); navigate('/'); }} className='text-[#999] hover:text-[#ddd]'>PLACEHOLDER</button>
-            </li>
-            <li>
-              <button onClick={() => { showHideNavbar(); navigate('/'); }} className='text-[#999] hover:text-[#ddd]'>PLACEHOLDER</button>
-            </li>
 
           </ul>
         </div>
