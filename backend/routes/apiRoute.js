@@ -15,40 +15,6 @@ router.get('/', async (req, res) => {
   res.status(200).json({ success: true, message: `API Route Working!`, timestamp: Date.now() })
 })
 
-// /api/generator/verify-link POST ==DONE==
-router.post('/generator/verify-link', async (req, res) => {
-  const { custom_link } = req.body
-
-  if(!custom_link) return res.json({ success: false, error: 'Custom Link undefined!' })
-
-  let CertificateData = await CertificateSchema.findOne({ custom_link })
-
-  if(CertificateData) {
-    res.json({ success: true, verified: false })
-  } else {
-    res.json({ success: true, verified: true })
-  }
-})
-
-// /api/generator/preview POST ==DONE==
-router.post('/generator/preview', async (req, res) => {
-  let { template, title, description, date, signature } = req.body
-
-  if(!template) return res.json({ success: false, error: 'Template undefined!' })
-  if(Number(template)<0 || Number(template)>8) return res.json({ success: false, error: 'Template out of range!' })
-
-  if(!title) return res.json({ success: false, error: 'Title undefined!' })
-  if(!description) return res.json({ success: false, error: 'Description undefined!' })
-  if(!date) return res.json({ success: false, error: 'Date undefined!' })
-  if(!signature) return res.json({ success: false, error: 'Signature undefined!' })
-
-  let certImg = await editCert({ template, title, description, date, signature })
-
-  let certImgBase64 = certImg.toString('base64')
-
-  res.json({ success: true, data: certImgBase64 })
-})
-
 // /api/generator POST ==DONE==
 router.post('/generator', multer().single('file'), async (req, res) => {
   const { template, title, description, date, signature, organization_name, event_name, custom_link } = req.body
@@ -94,6 +60,40 @@ router.post('/generator', multer().single('file'), async (req, res) => {
   })
 
   res.json({ success: true, data: newCertificateData })
+})
+
+// /api/generator/preview POST ==DONE==
+router.post('/generator/preview', async (req, res) => {
+  let { template, title, description, date, signature } = req.body
+
+  if(!template) return res.json({ success: false, error: 'Template undefined!' })
+  if(Number(template)<0 || Number(template)>8) return res.json({ success: false, error: 'Template out of range!' })
+
+  if(!title) return res.json({ success: false, error: 'Title undefined!' })
+  if(!description) return res.json({ success: false, error: 'Description undefined!' })
+  if(!date) return res.json({ success: false, error: 'Date undefined!' })
+  if(!signature) return res.json({ success: false, error: 'Signature undefined!' })
+
+  let certImg = await editCert({ template, title, description, date, signature })
+
+  let certImgBase64 = certImg.toString('base64')
+
+  res.json({ success: true, data: certImgBase64 })
+})
+
+// /api/generator/verify-link POST ==DONE==
+router.post('/generator/verify-link', async (req, res) => {
+  const { custom_link } = req.body
+
+  if(!custom_link) return res.json({ success: false, error: 'Custom Link undefined!' })
+
+  let CertificateData = await CertificateSchema.findOne({ custom_link })
+
+  if(CertificateData) {
+    res.json({ success: true, verified: false })
+  } else {
+    res.json({ success: true, verified: true })
+  }
 })
 
 // /api/certificates/:custom_link ==DONE==
